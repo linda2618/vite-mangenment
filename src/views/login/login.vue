@@ -63,9 +63,6 @@ const login = () => {
             username: ruleForm.value.username
         }).then(res => {
             if (res.code === 200) {
-                //存储到vuex里
-                store.commit('updateMenus', res.data.menus)
-
                 //先存储token
                 //方法一：
                 // Cookie.set('token', res.data.tokenHead + res.data.token, { expires: 7 })
@@ -74,9 +71,15 @@ const login = () => {
 
                 //获取用户信息
                 getAdminInfoApi().then(res => {
-                    // res.data.menus
-                    //跳转homepage页面
-                    router.push('/homepage')
+                    if (res.code === 200) {
+                        //res.data.menus
+                        //存储到vuex里
+                        store.commit('updateMenus', res.data.menus)
+
+                        //跳转homepage页面
+                        router.push('/homepage')
+                    }
+
 
                 })
             }
