@@ -18,6 +18,11 @@ interface AdminLoginRes {
 interface AdminInfoRes {
   menus: [];
 }
+interface AdminListParams {
+  keyword: string;
+  pageNum: number;
+  pageSize: number;
+}
 
 //登录返回token
 export const adminLoginApi = (
@@ -26,3 +31,7 @@ export const adminLoginApi = (
 //获取当前用户信息
 export const getAdminInfoApi = (): PromiseRes<AdminInfoRes> =>
   request.get("/admin/info");
+//获取用户数据列表
+export const getAdminList = (
+  data: AdminListParams
+): PromiseRes<{ list: {}[] }> => request.get("/admin/list", { params: data });

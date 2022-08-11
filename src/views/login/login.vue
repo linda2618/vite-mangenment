@@ -70,18 +70,19 @@ const login = () => {
                 window.sessionStorage.setItem("token", res.data.tokenHead + res.data.token)
 
                 //获取用户信息
-                getAdminInfoApi().then(res => {
-                    if (res.code === 200) {
-                        //res.data.menus
-                        //存储到vuex里
-                        store.commit('updateMenus', res.data.menus)
-
-                        //跳转homepage页面
-                        router.push('/homepage')
-                    }
-
-
+                store.dispatch('getAdminInfo').then(res => {
+                    router.push('/homepage')
                 })
+                // getAdminInfoApi().then(res => {
+                //     if (res.code === 200) {
+                //         //res.data.menus
+                //         //存储到vuex里
+                //         store.commit('updateMenus', res.data.menus)
+
+                //         //跳转homepage页面
+                //         router.push('/homepage')
+                //     }
+                // })
             }
         })
     }).catch(() => {
